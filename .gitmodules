@@ -1,0 +1,6 @@
+[submodule "deps/front"]
+	path = deps/front
+	url = git@github.com:secgio/vue-finances-front.git
+[submodule "deps/back"]
+	path = deps/back
+	url = git@github.com:secgio/vue-finances-back.git
