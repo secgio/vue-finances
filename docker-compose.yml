@@ -15,6 +15,20 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
+  
+  web:
+    container_name: web
+    depends_on:
+      - api
+    build:
+      context: ./deps/front
+      dockerfile: Dockerfile
+    labels:
+      - traefik.enable=true
+      - traefik.port=8000
+      - traefik.frontend.rule=Host:vuefinances.${DOMAIN}
+      - traefik.backend=web
+
   api:
     container_name: api
     depends_on:
@@ -34,8 +48,8 @@ services:
       PRISMA_ENDPOINT: http://prisma:4477
       PRISMA_SERVICE:
       PRISMA_STAGE:
-      PRISMA_SERVICE_SECRET:      
-  
+      PRISMA_SERVICE_SECRET:
+
   prisma:
     container_name: prisma
     image: prismagraphql/prisma:1.27
